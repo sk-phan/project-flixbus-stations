@@ -1,0 +1,11 @@
+nav {
+    background-color: #73D700;
+    position: relative;
+    height: 64px;
+}
+
+.nav-logo {
+    position: absolute;
+    left: 32px;
+    top: 20px;
+}
