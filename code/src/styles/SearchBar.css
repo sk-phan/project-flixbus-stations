@@ -1,5 +1,7 @@
-.search-container {
+.map-side-container {
     display: flex;
+    flex-direction: column;
+    padding: 24px;
     height: 100%; /* Ensure the container takes the full height of the row */
   }
   
@@ -7,15 +9,79 @@
     padding: 10px; 
     font-size: 16px;
     width: 300px;
-    margin: 10px;
     border: transparent;
     border-radius: 5px; 
     outline: none;
     background-color: #f3f3f8;
+    margin-bottom: 32px;
+    margin-right: 4px;
   }
   
-  /* Optional: Add styling for placeholder text */
   .search-input::placeholder {
-    color: #999; /* Adjust the placeholder color */
+    color: #999; 
+  }
+
+  .form button {
+    background-color: #73D700; /* Your desired background color */
+    color: white; /* Text color */
+    padding: 10px 16px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+  
+    /* Optional: Add hover effect */
   }
   
+  .form button:hover {
+    background-color: #62b504; /* Adjust hover color as needed */
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .list li {
+    width: 100%;
+    text-align: left;
+    background-color: white;
+    padding:16px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: none; 
+    cursor: pointer;
+  }
+  
+  .list li:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+
+  .list li:hover {
+    background-color: #fafafc;
+  }
+
+  .bus-icon {
+    margin-right: 12px;
+  }
+
+  .address {
+    text-align: left;
+    width: 100%;
+  }
+
+  .address > h4{
+    padding-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .address > span{
+    font-size: 14px;
+    color: #666;
+  }

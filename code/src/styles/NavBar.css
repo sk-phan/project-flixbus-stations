@@ -1,11 +1,13 @@
 nav {
     background-color: #73D700;
     position: relative;
-    height: 64px;
+    height: 6vh;
+    display: flex;
+    margin-bottom: 24px;
 }
 
 .nav-logo {
     position: absolute;
     left: 32px;
-    top: 20px;
+    top: 2.2vh;
 }
