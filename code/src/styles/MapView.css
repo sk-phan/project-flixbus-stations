@@ -1,0 +1,15 @@
+.map-view-container {
+    display: flex;
+    width: 100vw;
+  }
+  
+  .search-bar {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .map-component {
+    flex: 2;
+    /* Add any other styles for the map component */
+  }
+  
