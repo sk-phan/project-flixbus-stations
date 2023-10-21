@@ -9,12 +9,20 @@ interface Props {
 
 const MapComponent = ({ currentPosition } : Props) => {
     const position: LatLngExpression = [51.505, -0.09]
+    
     const customIcon = new Icon({
-        iconUrl: "https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon.png",
-        iconSize: [25, 41],
+        iconUrl: "/marker.png",
+        iconSize: [41, 41],
         iconAnchor: [10, 41],
         popupAnchor: [2, -40]
     });
+
+    const customBusIcon = new Icon({
+        iconUrl: "/busMarker.png",
+        iconSize: [41, 41],
+        iconAnchor: [10, 41],
+        popupAnchor: [2, -40]
+    })
 
     return (
         <div className='map-container'>
@@ -28,7 +36,7 @@ const MapComponent = ({ currentPosition } : Props) => {
                 A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
             </Marker>
-            <Marker position={[52.505, -0.09]} icon={customIcon}>  
+            <Marker position={[52.505, -0.09]} icon={customBusIcon}>  
             </Marker>
             </MapContainer>
         </div>
