@@ -57,6 +57,10 @@ const SearchBar = ({ searchBusStops, busStops, viewLocation, reset }: Props) => 
                     ))
                 }
             </ul>
+
+            <div className="copyright">
+                <span>All rights reserved by FlixBus & RapidAPI</span>
+            </div>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 .map-view-container {
     display: flex;
     width: 100vw;
+    height: 90vh;
   }
   
   .search-bar {
