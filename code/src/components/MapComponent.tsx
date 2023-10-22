@@ -55,6 +55,7 @@ const MapComponent = ({ currentPosition, busStops, zoomedLocation, loading }: Pr
             else {
                 setBounds(map);
             }
+            /* eslint-disable react-hooks/exhaustive-deps */
         }, [zoomedLocation, busStops, currentPosition]);
 
 

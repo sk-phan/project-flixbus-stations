@@ -84,6 +84,7 @@ const MapView = () => {
         }
 
         getCurrentPosition()
+        /* eslint-disable react-hooks/exhaustive-deps */
     }, [])
 
     const fetchLocations = async(cityName: string) => {
