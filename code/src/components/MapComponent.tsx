@@ -2,7 +2,7 @@ import { LatLngExpression, Icon, Map } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip  } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import "../styles/MapComponent.css";
-import { RefObject, useEffect, useRef,  } from 'react';
+import { RefObject, useEffect, useLayoutEffect, useRef,  } from 'react';
 import { Place } from '../types';
 import L from 'leaflet';
 
@@ -10,11 +10,12 @@ interface Props {
     currentPosition: [number, number];
     busStops: Place[];
     zoomedLocation: Place;
+    loading: boolean
 }
 
 const zoom = 13
 
-const MapComponent = ({ currentPosition, busStops, zoomedLocation } : Props) => {
+const MapComponent = ({ currentPosition, busStops, zoomedLocation, loading } : Props) => {
 
     const mapRef: RefObject<Map> = useRef(null);
 
@@ -37,7 +38,7 @@ const MapComponent = ({ currentPosition, busStops, zoomedLocation } : Props) => 
         if (zoomedLocation.id !== "") {
             if (map) {
                 const coords: LatLngExpression = [ zoomedLocation.location.lat, zoomedLocation.location.lon ]
-                const current: LatLngExpression = [60.1699, 24.9384]
+
                 map.setView(coords, 30);
 
                 const bounds = L.latLngBounds([
@@ -51,12 +52,8 @@ const MapComponent = ({ currentPosition, busStops, zoomedLocation } : Props) => 
         else {
            setBounds()
         }
-    }, [zoomedLocation])
-
-    useEffect(() => {
-        setBounds()
-    }, [busStops, currentPosition])
-
+    }, [zoomedLocation, currentPosition])
+    
 
     const setBounds = () => {
         const map = mapRef.current;
@@ -79,12 +76,29 @@ const MapComponent = ({ currentPosition, busStops, zoomedLocation } : Props) => 
     
                 map.fitBounds(bound, { padding: [50, 50] });
             }
+            else if (busStops.length === 0) {
+
+                if ( JSON.stringify(currentPosition) === "[0,0]") {
+                    console.log("hello")
+                    map.fitBounds([[-90,180], [90,-180]], { padding: [50, 50] });
+                }
+                else {
+                    const bound = L.latLngBounds([
+                        currentPosition,
+                      ]);
+    
+                      console.log(currentPosition)
+        
+                    map.fitBounds(bound, { padding: [50, 50] });
+                    map.setView(currentPosition, 30);
+                }
+            }
         }
     }
 
     return (
         <div className='map-container'>
-            <MapContainer ref={mapRef} style={{ width: "100%", height: "100%" }}  center={[busStops[0].location.lat, busStops[0].location.lon]} zoom={zoom} scrollWheelZoom={true}>
+            <MapContainer ref={mapRef} style={{ width: "100%", height: "100%" }}  zoom={zoom} scrollWheelZoom={true}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
