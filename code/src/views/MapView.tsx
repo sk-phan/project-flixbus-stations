@@ -54,12 +54,13 @@ const MapView = () => {
     
                     const response = await axios.get<GeocodeResponse>('https://maps.googleapis.com/maps/api/geocode/json', {
                         params: {
-                          latlng: `${currentPosition[0]}, ${currentPosition[1]}` ,
-                          key: "AIzaSyCSVYmoBS5Pe_a_HCIgUVj25tCRFO_hnBI",
+                          latlng: `${latitude}, ${longitude}` ,
+                          key: process.env.REACT_APP_GOOGLE_KEY,
                         },
                       });           
                       
                       if (response.data && response.data.results.length > 0) {
+
                           const cityName = response.data.results[0].address_components[2].long_name;
                           fetchLocations(cityName.toLowerCase())
                       }
@@ -88,19 +89,20 @@ const MapView = () => {
     }, [])
 
     const fetchLocations = async(cityName: string) => {
-
+      console.log(cityName)
         const options = {
             method: 'GET',
             url: 'https://flixbus2.p.rapidapi.com/autocomplete',
             params: {query: cityName},
             headers: {
-            'X-RapidAPI-Key': '7df617f766msh5869de7f40e70cap1f8f50jsnd1ba6a221d9e',
+            'X-RapidAPI-Key': process.env.REACT_APP_KEY,
             'X-RapidAPI-Host': 'flixbus2.p.rapidapi.com'
             }
         };
 
         try {     
           const response = await axios.request(options);
+          console.log(response)
             const matchingCities = response.data.filter((item: Place) => item.city.name.toLowerCase() === cityName)
             setBusStops(matchingCities)
         } catch (error) {
