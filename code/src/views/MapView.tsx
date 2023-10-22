@@ -157,12 +157,17 @@ const MapView = () => {
         setZoomedLocation(location)
     }
 
+    const reset = () => {
+      setZoomedLocation(busStopTemplate)
+    }
+
     return (
         <div className="map-view-container">
             <SearchBar 
                 searchBusStops={searchBusStops}
                 busStops = { busStops }
                 viewLocation={ viewLocation }
+                reset = {reset}
                 />
             {
                 loading ? <p>Loading</p>
