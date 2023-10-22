@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar';
 import '../styles/MapView.css';
 import axios from 'axios';
 import { Place } from '../types';
+
 interface GeocodeResponse {
     results: {
       address_components: {
