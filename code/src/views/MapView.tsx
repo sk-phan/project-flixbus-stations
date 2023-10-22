@@ -35,10 +35,7 @@ const busStopTemplate ={
 const MapView = () => {
 
     const [currentPosition, setCurrentPosition] = useState<[number, number]>([0,0]);
-    const [busStops, setBusStops] = useState<Place[]>([
-     
-      ]);
-    const [city, setCity] = useState<string>("");
+    const [busStops, setBusStops] = useState<Place[]>([]);
     const [loading, setLoading] = useState(false);
     const [zoomedLocation, setZoomedLocation] = useState<Place>(busStopTemplate);
 
@@ -46,10 +43,12 @@ const MapView = () => {
         
         const getCurrentPosition = async () => {
             
+          try {
             setLoading(true)
 
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(async (position) => {
+                navigator.geolocation.getCurrentPosition(
+                  async (position) => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude
     
@@ -62,20 +61,26 @@ const MapView = () => {
                       
                       if (response.data && response.data.results.length > 0) {
                           const cityName = response.data.results[0].address_components[2].long_name;
-                          fetchLocations(city)
-                          setCity(cityName)
-                          // const response = await axios.request(options);
-
+                          fetchLocations(cityName.toLowerCase())
                       }
     
                     setCurrentPosition([ latitude, longitude ])
                     setLoading(false)
-                });
+                  },
+                  (error) => {
+                    console.error(error.message);
+                    fetchLocations("helsinki")
+                }
+                );
     
               } else {
                 alert("Geolocation is not supported by this browser.");
                 setLoading(false)
               }
+          }
+          catch(e) {
+            setLoading(false)
+          }
         }
 
         getCurrentPosition()
@@ -95,7 +100,6 @@ const MapView = () => {
 
         try {     
           const response = await axios.request(options);
-            console.log(response.data);
             const matchingCities = response.data.filter((item: Place) => item.city.name.toLowerCase() === cityName)
             setBusStops(matchingCities)
         } catch (error) {
