@@ -47,7 +47,7 @@ const SearchBar = ({ searchBusStops, busStops, viewLocation, reset }: Props) => 
                 {
                     busStops.length > 0 &&
                     busStops.map(location => (
-                        <li key={location.id} onClick={() => selectCard(location)} style={{ backgroundColor: selectedCard === location.id ? "red" : "#fff" }}> 
+                        <li key={location.id} onClick={() => selectCard(location)} style={{ backgroundColor: selectedCard === location.id ? "#eee" : "#fff" }}> 
                             <img className="bus-icon" src="/busStop.png" width="50" height="50" alt="bus stop" />
                             <div className="address">
                                 <h4>{location.name}</h4>

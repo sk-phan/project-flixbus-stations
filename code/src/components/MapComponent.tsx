@@ -37,10 +37,12 @@ const MapComponent = ({ currentPosition, busStops, zoomedLocation } : Props) => 
         if (zoomedLocation.id !== "") {
             if (map) {
                 const coords: LatLngExpression = [ zoomedLocation.location.lat, zoomedLocation.location.lon ]
+                const current: LatLngExpression = [60.1699, 24.9384]
                 map.setView(coords, 30);
 
                 const bounds = L.latLngBounds([
                     [zoomedLocation.location.lat, zoomedLocation.location.lon],
+                    currentPosition
                 ]);
         
                 map.fitBounds(bounds, { padding: [50, 50] });
